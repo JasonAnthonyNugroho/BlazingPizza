@@ -1,15 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Infrastructure.Internal;
-using System.Data.Common;
 
-namespace BlazingPizza.Data
+namespace BlazingPizza.Data;
+
+public class PizzaStoreContext : DbContext
 {
-    public class PizzaStoreContext : DbContext
+    public PizzaStoreContext(DbContextOptions options) : base(options)
     {
-        public PizzaStoreContext(DbContextOptions option) : base(option) { 
-        
-        }
-
-        public DbSet<PizzaSpecial> Specials { get; set; }
     }
+
+    public DbSet<PizzaSpecial> Specials { get; set; }
 }
