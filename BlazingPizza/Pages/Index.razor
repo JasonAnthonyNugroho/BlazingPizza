@@ -23,7 +23,8 @@
     
 @code{
     List<PizzaSpecial> specials = new();
-
+    Pizza configuringPizza;
+    bool showingConfigureDialog;
     protected override async Task OnInitializedAsync(){
 
         specials = await HttpClient.GetFromJsonAsync<List<PizzaSpecial>>(NavigationManager.BaseUri+"specials");
