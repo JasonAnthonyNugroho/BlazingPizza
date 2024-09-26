@@ -1,5 +1,5 @@
 ﻿namespace BlazingPizza.Services;
-
+using BlazingPizza.Services;
 public class OrderState
 {
     public bool ShowingConfigureDialog { get; private set; }
