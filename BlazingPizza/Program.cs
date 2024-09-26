@@ -1,8 +1,9 @@
 using BlazingPizza;
 using BlazingPizza.Data;
+using BlazingPizza.Services;
 
 var builder = WebApplication.CreateBuilder(args);
-
+builder.Services.AddScoped<OrderState>();
 builder.Services.AddControllers();
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
