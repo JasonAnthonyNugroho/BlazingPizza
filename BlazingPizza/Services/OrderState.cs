@@ -1,5 +1,7 @@
 ﻿namespace BlazingPizza.Services;
 using BlazingPizza.Services;
+using Microsoft.AspNetCore.Components;
+
 public class OrderState
 {
     public bool ShowingConfigureDialog { get; private set; }
@@ -36,5 +38,15 @@ public class OrderState
     public void RemoveConfiguredPizza(Pizza pizza)
     {
         Order.Pizzas.Remove(pizza);
+    }
+    bool isSubmitting;
+
+    async Task PlaceOrder()
+    {
+        isSubmitting = true;
+        var response = await HttpClient.PostAsJsonAsync(NavigationManager.BaseUri + "orders", OrderState.Order);
+        var newOrderId = await response.Content.ReadFromJsonAsync<int>();
+        OrderState.ResetOrder();
+        NavigationManager.NavigateTo("/");
     }
 }
