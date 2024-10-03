@@ -60,7 +60,7 @@
 </div>
 @code {
     List<PizzaSpecial> specials = new List<PizzaSpecial>();
-
+    Order order => OrderState.Order;
     protected override async Task OnInitializedAsync()
     {
         specials = await HttpClient.GetFromJsonAsync<List<PizzaSpecial>>(NavigationManager.BaseUri + "specials");
