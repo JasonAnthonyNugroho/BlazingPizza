@@ -1,6 +1,5 @@
 ﻿namespace BlazingPizza.Services;
-using BlazingPizza.Services;
-using Microsoft.AspNetCore.Components;
+
 
 public class OrderState
 {
@@ -41,14 +40,7 @@ public class OrderState
     }
     bool isSubmitting;
 
-    async Task PlaceOrder()
-    {
-        isSubmitting = true;
-        var response = await HttpClient.PostAsJsonAsync(NavigationManager.BaseUri + "orders", OrderState.Order);
-        var newOrderId = await response.Content.ReadFromJsonAsync<int>();
-        OrderState.ResetOrder();
-        NavigationManager.NavigateTo("/");
-    }
+
     public void ResetOrder()
     {
         Order = new Order();
