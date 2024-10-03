@@ -49,4 +49,8 @@ public class OrderState
         OrderState.ResetOrder();
         NavigationManager.NavigateTo("/");
     }
+    public void ResetOrder()
+    {
+        Order = new Order();
+    }
 }
