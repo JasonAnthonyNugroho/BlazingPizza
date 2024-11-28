@@ -4,7 +4,7 @@
 @inject NavigationManager NavigationManager
 
 <div class="main">
-    <EditForm Model=Order.DeliveryAddress OnSubmit=CheckSubmission>
+    <EditForm Model=Order.DeliveryAddress OnValidSubmit=PlaceOrder>
     <div class="checkout-cols">
         <div class="checkout-order-details">
             <h4>Review order</h4>
