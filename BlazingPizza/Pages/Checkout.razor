@@ -36,8 +36,10 @@
 
     async Task PlaceOrder()
     {
+        isError = false;
         isSubmitting = true;
-        var response = await HttpClient.PostAsJsonAsync(NavigationManager.BaseUri + "orders", OrderState.Order);
+        var response = await HttpClient.PostAsJsonAsync(
+            $"{NavigationManager.BaseUri}orders", OrderState.Order);
         var newOrderId = await response.Content.ReadFromJsonAsync<int>();
         OrderState.ResetOrder();
         NavigationManager.NavigateTo($"myorders/{newOrderId}");
