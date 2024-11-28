@@ -2,7 +2,7 @@
 @inject BlazingPizza.Services.OrderState OrderState
 @inject HttpClient HttpClient
 @inject NavigationManager NavigationManager
-
+@implements IDisposable
 <div class="main">
     <EditForm EditContext=editContext OnValidSubmit=PlaceOrder>
     <div class="checkout-cols">
@@ -36,10 +36,7 @@
     private EditContext editContext;
     async Task PlaceOrder()
     {
-        isError = false;
-        isSubmitting = true;
-        var response = await HttpClient.PostAsJsonAsync(
-            $"{NavigationManager.BaseUri}orders", OrderState.Order);
+        var response = await HttpClient.PostAsJsonAsync(NavigationManager.BaseUri + "orders", OrderState.Order);
         var newOrderId = await response.Content.ReadFromJsonAsync<int>();
         OrderState.ResetOrder();
         NavigationManager.NavigateTo($"myorders/{newOrderId}");
@@ -48,5 +45,20 @@
     {
         isError = true;
     }
-    
+    protected override void OnInitialized()
+    {
+        editContext = new(Order.DeliveryAddress);
+        editContext.OnFieldChanged += HandleFieldChanged;
+    }
+
+    private void HandleFieldChanged(object sender, FieldChangedEventArgs e)
+    {
+        isError = !editContext.Validate();
+        StateHasChanged();
+    }
+
+    public void Dispose()
+    {
+        editContext.OnFieldChanged -= HandleFieldChanged;
+    }
 }
