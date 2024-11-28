@@ -4,6 +4,7 @@
 @inject NavigationManager NavigationManager
 
 <div class="main">
+    <EditForm Model=Order.DeliveryAddress OnSubmit=CheckSubmission>
     <div class="checkout-cols">
         <div class="checkout-order-details">
             <h4>Review order</h4>
@@ -16,9 +17,10 @@
         </div>
     </div>
 
-    <button class="checkout-button btn btn-warning" @onclick="PlaceOrder" disabled=@isSubmitting>
+        <button class="checkout-button btn btn-warning" disabled=@isSubmitting>
         Place order
-    </button>
+        </button>
+    </EditForm>
 </div>
 
 @code {
@@ -33,5 +35,12 @@
         var newOrderId = await response.Content.ReadFromJsonAsync<int>();
         OrderState.ResetOrder();
         NavigationManager.NavigateTo($"myorders/{newOrderId}");
+    }
+
+    private async Task CheckSubmission()
+    {
+        isSubmitting = true;
+        await PlaceOrder();
+        isSubmitting = false;
     }
 }
