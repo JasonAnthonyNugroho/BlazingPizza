@@ -21,7 +21,7 @@
         </div>
     </div>
 
-        <button class="checkout-button btn btn-warning" disabled=@isSubmitting>
+        <button class="checkout-button btn btn-warning" type="Submit" disabled=@isError>
         Place order
         </button>
         
@@ -33,7 +33,7 @@
     Order Order => OrderState.Order;
     bool isError = false;
     bool isSubmitting;
-
+    private EditContext editContext;
     async Task PlaceOrder()
     {
         isError = false;
